@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QuizController;
+
 // use App\Http\Controllers\CloudController
 
 /*
@@ -24,3 +26,7 @@ Route::get('/', [AdminController::class, 'index']);
 Route::post('admin', [AdminController::class, 'register']);
 Route::post('admin/login', [AdminController::class, 'login']);
 
+Route::get('quiz', [QuizController::class, 'index']);
+Route::post('quiz', [QuizController::class, 'store']);
+Route::patch('quiz/{id}', [QuizController::class, 'update']);
+Route::delete('quiz/{id}', [QuizController::class, 'destroy']);
