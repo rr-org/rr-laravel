@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserAvatarRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateFirst;
 use App\Http\Resources\UserResource;
@@ -48,6 +49,11 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
+        if(User::where('username', $data['username'])->count() == 1){
+            throw new HttpResponseException(response([
+                "errors" => 'username already exist'
+            ], 400));
+        };
         $user = User::where('email', $data['email'])->first();
         $user->username = $data['username'];
         $user->avatar = $data['avatar'];
@@ -55,4 +61,13 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function editAvatar(UserAvatarRequest $request, $id)
+    {
+        $data = $request->validated();
+
+        $user = User::where('_id', $id)->first();
+        $user->avatar = $data['avatar'];
+        $user->update();
+        return new UserResource($user);
+    }
 }

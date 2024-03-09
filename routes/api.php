@@ -33,4 +33,5 @@ Route::post('admin/login', [AdminController::class, 'login']);
 
 Route::post('register', [UserController::class, 'register']);
 Route::delete('logout', [UserController::class, 'logout']);
-Route::patch('update/first', [UserController::class, 'updateFirst']);
+Route::patch('user/first', [UserController::class, 'updateFirst']);
+Route::patch('user/avatar/{id}', [UserController::class, 'editAvatar']);
