@@ -44,5 +44,14 @@ class UserController extends Controller
         ], 200)->withCookie(Cookie::forget('token'));
     }
 
+    public function updateAvatarUsername(UserUpdateAvatarUsername $request): UserResource
+    {
+        $data = $request->validated();
 
+        $user = User::where('email', $data['email'])->first();
+        $user->username = $data['username'];
+        $user->avatar = $data['avatar'];
+        $user->update();
+        return new UserResource($user);
+    }
 }
