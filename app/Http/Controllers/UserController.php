@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRegisterRequest;
-use App\Http\Requests\UserUpdateAvatarUsername;
+use App\Http\Requests\UserUpdateFirst;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -28,8 +28,8 @@ class UserController extends Controller
         $user->email = $data['email'];
         $user->username = $data['username'] ?? null;
         $user->avatar = $data['avatar'] ?? null;
-        $user->diamond = $data['diamond'] ?? null;
-        $user->score = $data['score'] ?? null;
+        $user->diamond = $data['diamond'] ?? 0;
+        $user->score = $data['score'] ?? 0;
         $user->save();
 
         return response()->json([
@@ -44,7 +44,7 @@ class UserController extends Controller
         ], 200)->withCookie(Cookie::forget('token'));
     }
 
-    public function updateAvatarUsername(UserUpdateAvatarUsername $request): UserResource
+    public function updateFirst(UserUpdateFirst $request): UserResource
     {
         $data = $request->validated();
 
@@ -54,4 +54,5 @@ class UserController extends Controller
         $user->update();
         return new UserResource($user);
     }
+
 }
