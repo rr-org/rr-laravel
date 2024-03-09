@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+
 // use App\Http\Controllers\CloudController
 
 /*
@@ -24,3 +26,10 @@ Route::get('/', [AdminController::class, 'index']);
 Route::post('admin', [AdminController::class, 'register']);
 Route::post('admin/login', [AdminController::class, 'login']);
 
+
+
+
+
+
+Route::post('register', [UserController::class, 'register']);
+// Route::delete('logout', [UserController::class, 'logout']);
