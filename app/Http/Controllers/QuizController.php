@@ -42,6 +42,7 @@ class QuizController extends Controller
         $data = $request->validated();
         
         $quiz = Quiz::where('_id', $id)->first();
+        var_dump($quiz);
         if(!$quiz){
             throw new HttpResponseException(response([
                 "errors" => "Question not found"
