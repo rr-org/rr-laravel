@@ -37,4 +37,12 @@ class UserController extends Controller
         ], 201)->cookie('token', Str::uuid()->toString());
     }
 
+    public function logout()
+    {
+        return response()->json([
+            'message' => 'Logout Success!'
+        ], 200)->withCookie(Cookie::forget('token'));
+    }
+
+
 }

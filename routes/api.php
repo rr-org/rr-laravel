@@ -32,4 +32,4 @@ Route::post('admin/login', [AdminController::class, 'login']);
 
 
 Route::post('register', [UserController::class, 'register']);
-// Route::delete('logout', [UserController::class, 'logout']);
+Route::delete('logout', [UserController::class, 'logout']);
