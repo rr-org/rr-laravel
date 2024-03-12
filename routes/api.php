@@ -35,3 +35,4 @@ Route::post('register', [UserController::class, 'register']);
 Route::delete('logout', [UserController::class, 'logout']);
 Route::patch('user/first', [UserController::class, 'updateFirst']);
 Route::patch('user/avatar/{id}', [UserController::class, 'editAvatar']);
+Route::patch('user/winner/{id}', [UserController::class, 'winner']);

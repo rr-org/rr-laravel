@@ -70,4 +70,12 @@ class UserController extends Controller
         $user->update();
         return new UserResource($user);
     }
+
+    public function winner($id)
+    {
+        $user = User::where('_id', $id)->first();
+        $user->diamond = $user->diamond + 1;
+        $user->update();
+        return new UserResource($user);
+    }
 }
