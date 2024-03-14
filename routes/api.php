@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\UserController;
+// use App\Http\Controllers\CloudController
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +28,10 @@ Route::post('admin', [AdminController::class, 'register']);
 Route::post('admin/login', [AdminController::class, 'login']);
 Route::delete('admin/logout', [AdminController::class, 'logout']);
 
-// Avatar
-Route::post('avatar', [AvatarController::class, 'create']);
-Route::get('avatars', [AvatarController::class, 'index']);
-Route::delete('avatar/{id}', [AvatarController::class, 'destroy']);
-Route::patch('avatar/{id}', [AvatarController::class, 'update']);
+
+Route::post('register', [UserController::class, 'register']);
+Route::delete('logout', [UserController::class, 'logout']);
+Route::patch('user/first', [UserController::class, 'updateFirst']);
+Route::patch('user/avatar/{id}', [UserController::class, 'editAvatar']);
+Route::patch('user/winner/{id}', [UserController::class, 'winner']);
+
