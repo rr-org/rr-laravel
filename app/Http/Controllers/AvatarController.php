@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AvatarRequest;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use App\Models\avatar;
 
 class AvatarController extends Controller
 {
@@ -11,15 +14,38 @@ class AvatarController extends Controller
      */
     public function index()
     {
-        //
+        $avatars = Avatar::all();
+        return response()->json($avatars, 200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(AvatarRequest $request)
     {
-        //
+        $data = $request->validated();
+        function isBoolean($value) {
+            if($value) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $uploadedFile = $request->file('image');
+        $uploadedImage = Cloudinary::upload($uploadedFile->getRealPath(), [
+            'folder' => 'Resonance-Riddle',
+        ]);
+
+        $avatar = new avatar([
+            'image' => $uploadedImage->getSecurePath(),
+            'price' => $data['price'],
+            'isLocked' => isBoolean($data['isLocked']),
+            'eqquiped' => isBoolean($data['eqquiped']),
+        ]);
+        $avatar->save();
+
+        return response()->json(['message' => 'Avatar created successfully'], 201);
     }
 
     /**
@@ -49,9 +75,31 @@ class AvatarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AvatarRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $avatar = avatar::find($id);
+
+        function isBooleanTwo($value) {
+            if($value) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $uploadedFile = $request->file('image');
+        $uploadedImage = Cloudinary::upload($uploadedFile->getRealPath(), [
+            'folder' => 'Resonance-Riddle',
+        ]);
+        
+        $avatar->image = $uploadedImage->getSecurePath();
+        $avatar->price = $request->input('price');
+        $avatar->isLocked = isBooleanTwo('isLocked');
+        $avatar->eqquiped = isBooleanTwo('eqquiped');
+        $avatar->update();
+
+        return response()->json(['message' => 'Avatar updated successfully'], 200);
     }
 
     /**
@@ -59,6 +107,9 @@ class AvatarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $avatar = Avatar::findOrFail($id);
+        $avatar->delete();
+
+        return response()->json(['message' => 'Avatar deleted successfully'], 200);
     }
 }

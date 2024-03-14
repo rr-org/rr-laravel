@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-// use App\Http\Controllers\CloudController
+use App\Http\Controllers\AvatarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,14 @@ use App\Http\Controllers\AdminController;
 //     return $request->user();
 // });
 
+// Admin
 Route::get('/', [AdminController::class, 'index']);
 Route::post('admin', [AdminController::class, 'register']);
 Route::post('admin/login', [AdminController::class, 'login']);
+Route::delete('admin/logout', [AdminController::class, 'logout']);
 
+// Avatar
+Route::post('avatar', [AvatarController::class, 'create']);
+Route::get('avatars', [AvatarController::class, 'index']);
+Route::delete('avatar/{id}', [AvatarController::class, 'destroy']);
+Route::patch('avatar/{id}', [AvatarController::class, 'update']);

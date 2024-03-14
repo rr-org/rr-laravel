@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AdminRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cookie;
 
 class AdminController extends Controller
 {
    public function index()
    {
         $admins = Admin::all();
-        return view('welcome', compact('admins'));
+        return response()->json($admins, 200);
    }
 
     public function register(AdminRequest $request) 
@@ -58,7 +59,15 @@ class AdminController extends Controller
         $admin->token = Str::uuid()->toString();
         $admin->save();
 
-        return response()->json((['result' => 'success for loggin']), 201);
+        return response()->json((['result' => 'success for loggin']), 201)->cookie('token', Str::uuid()->toString(), 120);
+    }
+
+    public function logout()
+    {
+        // Cookie::queue(Cookie::forget('token'));
+        // Cookie::forget('token');
+
+        return response()->json((['result' => 'success for logout']), 200)->withCookie(Cookie::forget('token'));
     }
 
 }

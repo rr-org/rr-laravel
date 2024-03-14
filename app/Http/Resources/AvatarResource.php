@@ -14,6 +14,12 @@ class AvatarResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'image' => $this->image,
+            'price' => $this->price,
+            'isLocked' => $this->isLocked,
+            'eqquiped' => $this->eqquiped
+        ];
     }
 }

@@ -24,10 +24,10 @@ class AvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', 'max:100'],
-            'price' => ['required', 'max:100'],
-            'isLocked' => ['required', 'max:100'],
-            'eqquiped' => ['required', 'max:100'],
+            'image' => ['required', 'image', 'mimes:png,jpg,jpeg,svg'],
+            'price' => ['required', 'int'],
+            'isLocked' => ['required', 'boolean' ],
+            'eqquiped' => ['required', 'boolean' ],
         ];
     }
 
