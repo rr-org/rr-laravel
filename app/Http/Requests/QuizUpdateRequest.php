@@ -25,8 +25,8 @@ class QuizUpdateRequest extends FormRequest
     {
         return [
             'question' => ['nullable', 'mimes:mp3,wav,aac'],
-            'answer_true' => ['nullable', 'string'],
-            'answer_false' => ['nullable', 'array'],
+            'answer' => ['nullable', 'string'],
+            'option' => ['nullable', 'array'],
         ];
     }
 

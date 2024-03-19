@@ -31,8 +31,8 @@ class QuizController extends Controller
 
         $quiz = new Quiz();
         $quiz->question = $upload->getSecurePath();
-        $quiz->answer_true = $data['answer_true'];
-        $quiz->answer_false = $data['answer_false'];
+        $quiz->answer = $data['answer'];
+        $quiz->option = $data['option'];
         $quiz->save();
         return new QuizResource($quiz);
     }
@@ -52,8 +52,8 @@ class QuizController extends Controller
         $upload = $request->file('question')->storeOnCloudinary('resonance-riddle');
         
         $quiz->question = $upload->getSecurePath();
-        $quiz->answer_true = $data['answer_true'];
-        $quiz->answer_false = $data['answer_false'];
+        $quiz->answer = $data['answer'];
+        $quiz->option = $data['option'];
         $quiz->update();
         return new QuizResource($quiz);
     }

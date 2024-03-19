@@ -12,7 +12,7 @@ class Quiz extends Model
     protected $connection = 'mongodb';
     protected $fillable = [
         'question',
-        'answer_true',
-        'answer_false',
+        'answer',
+        'option',
     ];
 }

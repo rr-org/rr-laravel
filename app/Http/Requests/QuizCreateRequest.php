@@ -25,8 +25,8 @@ class QuizCreateRequest extends FormRequest
     {
         return [
             'question' => ['required', 'mimes:mp3,wav,aac'],
-            'answer_true' => ['required', 'string'],
-            'answer_false' => ['required', 'array'],
+            'answer' => ['required', 'string'],
+            'option' => ['required', 'array'],
         ];
     }
 
