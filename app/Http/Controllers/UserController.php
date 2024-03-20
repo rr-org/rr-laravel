@@ -71,6 +71,22 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function editScore(Request $request, $id)
+    {
+        $user = User::where('_id', $id)->first();
+        $user->score = $user->score + $request->score;
+        $user->update();
+        return new UserResource($user);
+    }
+
+    public function resetScore($id)
+    {
+        $user = User::where('_id', $id)->first();
+        $user->score = 0;
+        $user->update();
+        return new UserResource($user);
+    }
+
     public function winner($id)
     {
         $user = User::where('_id', $id)->first();
