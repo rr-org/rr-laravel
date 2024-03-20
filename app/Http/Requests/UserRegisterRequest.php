@@ -26,7 +26,7 @@ class UserRegisterRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'username' => ['nullable', 'string'],
-            'avatar' => ['nullable', 'array'],
+            'avatar' => ['nullable', 'string'],
             'diamond' => ['nullable', 'int'],
             'score' => ['nullable', 'int'],
         ];

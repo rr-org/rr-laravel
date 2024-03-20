@@ -14,15 +14,15 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function register(UserRegisterRequest $request) 
+    public function register(UserRegisterRequest $request)
     {
-        
+
         $data = $request->validated();
 
-        if(User::where('email', $data['email']) -> count() == 1){
-            return response([
-                'message' => 'Login Success!'
-            ], 200)->cookie('token', Str::uuid()->toString());
+        $check = User::where('email', $data['email'])->first();
+
+        if ($check) {
+            return new UserResource($check);
         }
 
         $user = new User();
@@ -33,9 +33,7 @@ class UserController extends Controller
         $user->score = $data['score'] ?? 0;
         $user->save();
 
-        return response()->json([
-            'message' => 'Register Success!'
-        ], 201)->cookie('token', Str::uuid()->toString());
+        return new UserResource($user);
     }
 
     public function logout()
@@ -49,7 +47,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        if(User::where('username', $data['username'])->count() == 1){
+        if (User::where('username', $data['username'])->count() == 1) {
             throw new HttpResponseException(response([
                 "errors" => 'username already exist'
             ], 400));

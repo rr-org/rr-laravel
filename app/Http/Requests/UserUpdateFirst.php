@@ -25,7 +25,7 @@ class UserUpdateFirst extends FormRequest
     {
         return [
             'email' => ['required', 'string'],
-            'avatar' => ['required', 'array'],
+            'avatar' => ['required', 'string'],
             'username' => ['required', 'string'],
         ];
     }

@@ -24,7 +24,7 @@ class UserAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => ['required', 'array'],
+            'avatar' => ['required', 'string'],
         ];
     }
 
