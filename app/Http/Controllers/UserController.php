@@ -10,10 +10,15 @@ use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users, 200);
+    }
+
     public function register(UserRegisterRequest $request)
     {
 
