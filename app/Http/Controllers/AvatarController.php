@@ -24,8 +24,9 @@ class AvatarController extends Controller
     public function create(AvatarRequest $request)
     {
         $data = $request->validated();
-        function isBoolean($value) {
-            if($value) {
+        function isBoolean($value)
+        {
+            if ($value) {
                 return true;
             } else {
                 return false;
@@ -59,9 +60,10 @@ class AvatarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function getOne($id)
     {
-        //
+        $avatar = Avatar::where('_id', $id)->first();
+        return response()->json($avatar, 200);
     }
 
     /**
@@ -80,8 +82,9 @@ class AvatarController extends Controller
         $data = $request->validated();
         $avatar = avatar::find($id);
 
-        function isBooleanTwo($value) {
-            if($value) {
+        function isBooleanTwo($value)
+        {
+            if ($value) {
                 return true;
             } else {
                 return false;
@@ -92,7 +95,7 @@ class AvatarController extends Controller
         $uploadedImage = Cloudinary::upload($uploadedFile->getRealPath(), [
             'folder' => 'Resonance-Riddle',
         ]);
-        
+
         $avatar->image = $uploadedImage->getSecurePath();
         $avatar->price = $request->input('price');
         $avatar->isLocked = isBooleanTwo('isLocked');
