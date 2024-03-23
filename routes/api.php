@@ -31,17 +31,20 @@ Route::delete('admin/logout', [AdminController::class, 'logout']);
 
 // Avatar
 Route::get('avatar', [AvatarController::class, 'index']);
+Route::get('avatar/{id}', [AvatarController::class, 'getOne']);
 Route::post('avatar', [AvatarController::class, 'create']);
 Route::patch('avatar/{id}', [AvatarController::class, 'update']);
 Route::delete('avatar/{id}', [AvatarController::class, 'destroy']);
 
 // Quiz
 Route::get('quiz', [QuizController::class, 'index']);
+Route::get('quiz/{id}', [QuizController::class, 'getOne']);
 Route::post('quiz', [QuizController::class, 'store']);
 Route::patch('quiz/{id}', [QuizController::class, 'update']);
 Route::delete('quiz/{id}', [QuizController::class, 'destroy']);
 
 // User
+Route::get('user', [UserController::class, 'index']);
 Route::post('register', [UserController::class, 'register']);
 Route::delete('logout', [UserController::class, 'logout']);
 Route::patch('user/first', [UserController::class, 'updateFirst']);
@@ -49,4 +52,3 @@ Route::patch('user/avatar/{id}', [UserController::class, 'editAvatar']);
 Route::patch('user/score/{id}', [UserController::class, 'editScore']);
 Route::patch('user/reset/{id}', [UserController::class, 'resetScore']);
 Route::patch('user/winner/{id}', [UserController::class, 'winner']);
-
