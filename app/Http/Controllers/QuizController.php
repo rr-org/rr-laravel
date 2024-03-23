@@ -17,11 +17,17 @@ class QuizController extends Controller
         return QuizResource::collection($quiz);
     }
 
+    public function getOne($id)
+    {
+        $quiz = Quiz::where('_id', $id)->first();
+        return new QuizResource($quiz);
+    }
+
     public function store(QuizCreateRequest $request): QuizResource
     {
         $data = $request->validated();
-        
-        if(Quiz::where('question', $data['question'])->count() == 1){
+
+        if (Quiz::where('question', $data['question'])->count() == 1) {
             throw new HttpResponseException(response([
                 "errors" => "Question already exists"
             ], 400));
@@ -40,17 +46,17 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id): QuizResource
     {
         $data = $request->validated();
-        
+
         $quiz = Quiz::where('_id', $id)->first();
         var_dump($quiz);
-        if(!$quiz){
+        if (!$quiz) {
             throw new HttpResponseException(response([
                 "errors" => "Question not found"
             ], 400));
         };
-        
+
         $upload = $request->file('question')->storeOnCloudinary('resonance-riddle');
-        
+
         $quiz->question = $upload->getSecurePath();
         $quiz->answer = $data['answer'];
         $quiz->option = $data['option'];
