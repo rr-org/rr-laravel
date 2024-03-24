@@ -26,8 +26,8 @@ class AvatarRequest extends FormRequest
         return [
             'image' => ['required', 'image', 'mimes:png,jpg,jpeg,svg'],
             'price' => ['required', 'int'],
-            'isLocked' => ['required', 'boolean' ],
-            'eqquiped' => ['required', 'boolean' ],
+            'isLocked' => ['required', 'boolean'],
+            'eqquiped' => ['required', 'boolean'],
         ];
     }
 

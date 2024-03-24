@@ -9,6 +9,14 @@ use App\Models\avatar;
 
 class AvatarController extends Controller
 {
+    public function isBool($value)
+    {
+        if ($value == 'true') {
+            return true;
+        } else if ($value == 'false') {
+            return false;
+        }
+    }
     /**
      * Display a listing of the resource.
      */
@@ -21,17 +29,19 @@ class AvatarController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(AvatarRequest $request)
+    public function create(Request $request)
     {
-        $data = $request->validated();
-        function isBoolean($value)
-        {
-            if ($value) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        $isLocked = $this->isBool($request->isLocked);
+        $eqquiped = $this->isBool($request->eqquiped);
+        // $data = $converted->validated();
+        // function isBoolean($value)
+        // {
+        //     if ($value) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
 
         $uploadedFile = $request->file('image');
         $uploadedImage = Cloudinary::upload($uploadedFile->getRealPath(), [
@@ -40,9 +50,12 @@ class AvatarController extends Controller
 
         $avatar = new avatar([
             'image' => $uploadedImage->getSecurePath(),
-            'price' => $data['price'],
-            'isLocked' => isBoolean($data['isLocked']),
-            'eqquiped' => isBoolean($data['eqquiped']),
+            'price' => $request->price,
+            'isLocked' => $isLocked,
+            'eqquiped' => $eqquiped,
+            // 'price' => $data['price'],
+            // 'isLocked' => isBoolean($data['isLocked']),
+            // 'eqquiped' => isBoolean($data['eqquiped']),
         ]);
         $avatar->save();
 
