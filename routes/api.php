@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\paymentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
 // use App\Http\Controllers\CloudController
@@ -52,3 +53,6 @@ Route::patch('user/avatar/{id}', [UserController::class, 'editAvatar']);
 Route::patch('user/score/{id}', [UserController::class, 'editScore']);
 Route::patch('user/reset/{id}', [UserController::class, 'resetScore']);
 Route::patch('user/winner/{id}', [UserController::class, 'winner']);
+
+// Payment
+Route::get('payment', [paymentController::class, 'index']);
